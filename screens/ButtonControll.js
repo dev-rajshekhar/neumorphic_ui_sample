@@ -11,7 +11,7 @@ import {Shadow, Neomorph, NeomorphBlur} from 'react-native-neomorph-shadows';
 import {calculationHelper} from './calculation_helper';
 const ButtonControll = ({sendDataToParent}) => {
   const [currentValue, setCurrentValue] = useState(0);
-  \;
+
   const handleOnClick = (type, value) => {
     switch (type) {
       case 'number':
