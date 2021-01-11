@@ -8,7 +8,27 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Shadow, Neomorph, NeomorphBlur} from 'react-native-neomorph-shadows';
-const ButtonControll = () => {
+import {calculationHelper} from './calculation_helper';
+const ButtonControll = ({sendDataToParent}) => {
+  const [currentValue, setCurrentValue] = useState(0);
+  \;
+  const handleOnClick = (type, value) => {
+    switch (type) {
+      case 'number':
+        handleNumber(value);
+        sendDataToParent(onPressIn);
+
+        break;
+    }
+  };
+
+  const handleNumber = (value) => {
+    if (currentValue == 0) {
+      setCurrentValue(value);
+    } else {
+      setCurrentValue(`${currentValue}${value}`);
+    }
+  };
   return (
     <View
       style={{
@@ -25,23 +45,34 @@ const ButtonControll = () => {
           <TouchableOpacity
             style={styles.buttonParent}
             onPress={() => {
-              console.log('000');
+              handleOnClick('clear');
             }}>
             <Text style={styles.textStyle}>AC</Text>
           </TouchableOpacity>
         </Neomorph>
         <Neomorph style={{...styles.neumorphStyle, backgroundColor: '#fa9702'}}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              handleOnClick('decimal');
+            }}>
             <Text style={styles.textStyle}>.</Text>
           </TouchableOpacity>
         </Neomorph>
         <Neomorph style={{...styles.neumorphStyle, backgroundColor: '#fa9702'}}>
-          <TouchableOpacity onPress={() => {}} onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {}}
+            onPress={() => {
+              handleOnClick('percentage');
+            }}>
             <Text style={styles.textStyle}>%</Text>
           </TouchableOpacity>
         </Neomorph>
         <Neomorph style={{...styles.neumorphStyle, backgroundColor: '#fa9702'}}>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {
+              handleOnClick('operation', '/');
+            }}>
             <Text style={styles.textStyle}>/</Text>
           </TouchableOpacity>
         </Neomorph>
@@ -55,17 +86,29 @@ const ButtonControll = () => {
           justifyContent: 'space-around',
         }}>
         <Neomorph style={styles.neumorphStyle}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              handleOnClick('number', 7);
+            }}>
             <Text style={styles.textStyle}>7</Text>
           </TouchableOpacity>
         </Neomorph>
         <Neomorph style={styles.neumorphStyle}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              handleOnClick('number', 8);
+            }}>
             <Text style={styles.textStyle}>8</Text>
           </TouchableOpacity>
         </Neomorph>
         <Neomorph style={styles.neumorphStyle}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              handleOnClick('number', 9);
+            }}>
             <Text style={styles.textStyle}>9</Text>
           </TouchableOpacity>
         </Neomorph>
@@ -81,17 +124,29 @@ const ButtonControll = () => {
           justifyContent: 'space-around',
         }}>
         <Neomorph style={styles.neumorphStyle}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              handleOnClick('number', 4);
+            }}>
             <Text style={styles.textStyle}>4</Text>
           </TouchableOpacity>
         </Neomorph>
         <Neomorph style={styles.neumorphStyle}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              handleOnClick('number', 5);
+            }}>
             <Text style={styles.textStyle}>5</Text>
           </TouchableOpacity>
         </Neomorph>
         <Neomorph style={styles.neumorphStyle}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              handleOnClick('number', 6);
+            }}>
             <Text style={styles.textStyle}>6</Text>
           </TouchableOpacity>
         </Neomorph>
@@ -100,7 +155,11 @@ const ButtonControll = () => {
             ...styles.neumorphStyle,
             backgroundColor: '#fa9702',
           }}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              handleOnClick('operation', '-');
+            }}>
             <Text style={styles.textStyle}>-</Text>
           </TouchableOpacity>
         </Neomorph>
@@ -114,22 +173,38 @@ const ButtonControll = () => {
           justifyContent: 'space-around',
         }}>
         <Neomorph style={styles.neumorphStyle}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              handleOnClick('number', 1);
+            }}>
             <Text style={styles.textStyle}>1</Text>
           </TouchableOpacity>
         </Neomorph>
         <Neomorph style={styles.neumorphStyle}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              handleOnClick('number', 2);
+            }}>
             <Text style={styles.textStyle}>2</Text>
           </TouchableOpacity>
         </Neomorph>
         <Neomorph style={styles.neumorphStyle}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              handleOnClick('number', 3);
+            }}>
             <Text style={styles.textStyle}>3</Text>
           </TouchableOpacity>
         </Neomorph>
         <Neomorph style={{...styles.neumorphStyle, backgroundColor: '#fa9702'}}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              handleOnClick('operation', '+');
+            }}>
             <Text style={styles.textStyle}>+</Text>
           </TouchableOpacity>
         </Neomorph>
@@ -153,18 +228,28 @@ const ButtonControll = () => {
               width: Platform.OS === 'ios' ? 180 : 160,
               height: Platform.OS === 'ios' ? 70 : 60,
             }}
-            onPress={() => {}}>
+            onPress={() => {
+              handleOnClick('number', 0);
+            }}>
             <Text style={styles.textStyle}>0</Text>
           </TouchableOpacity>
         </Neomorph>
 
         <Neomorph style={{...styles.neumorphStyle, backgroundColor: '#fa9702'}}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              // handleOnClick("")
+            }}>
             <Text style={styles.textStyle}>,</Text>
           </TouchableOpacity>
         </Neomorph>
         <Neomorph style={{...styles.neumorphStyle, backgroundColor: '#fa9702'}}>
-          <TouchableOpacity style={styles.buttonParent} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.buttonParent}
+            onPress={() => {
+              handleOnClick('equal', '=');
+            }}>
             <Text style={styles.textStyle}>=</Text>
           </TouchableOpacity>
         </Neomorph>

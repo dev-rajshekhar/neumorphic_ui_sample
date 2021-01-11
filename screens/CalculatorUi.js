@@ -6,6 +6,15 @@ import ButtonControll from './ButtonControll';
 const CalculatorUi = () => {
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
+
+  const [initalValue, setValue] = useState('');
+
+  const sendDataToParent = (index) => {
+    // the callback. Use a better name
+    console.log(index);
+    setValue(index);
+  };
+
   return (
     <SafeAreaView style={{backgroundColor: 'white', flex: 1}}>
       <View style={{backgroundColor: 'white', flex: 5}}>
@@ -30,9 +39,9 @@ const CalculatorUi = () => {
               width: windowWidth - 30,
               height: 180,
             }}>
-            <Text style={{fontSize: 32}}>123 + 25</Text>
+            <Text style={{fontSize: 32}}>{initalValue}</Text>
           </Neomorph>
-          <ButtonControll />
+          <ButtonControll sendDataToParent={sendDataToParent} />
         </View>
       </View>
     </SafeAreaView>
