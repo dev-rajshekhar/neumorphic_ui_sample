@@ -10,24 +10,65 @@ import {
 import {Shadow, Neomorph, NeomorphBlur} from 'react-native-neomorph-shadows';
 import {calculationHelper} from './calculation_helper';
 const ButtonControll = ({sendDataToParent}) => {
-  const [currentValue, setCurrentValue] = useState(0);
+  const [currentValue, setCurrentValue] = useState('');
+  const [previous, setPrevious] = useState('');
+  const [operator, setOperator] = useState('');
 
   const handleOnClick = (type, value) => {
     switch (type) {
+      case 'clear':
+        setPrevious('');
+        setCurrentValue('');
+        setOperator('');
+        sendDataToParent('');
+        break;
+      case 'delete':
+        if (currentValue.length > 0) {
+          var modifiedString = currentValue.slice(0, -1);
+          sendDataToParent(modifiedString);
+          setCurrentValue(modifiedString);
+        }
+        break;
       case 'number':
         handleNumber(value);
-        sendDataToParent(onPressIn);
+        break;
+
+      case 'operation':
+        handleNumber(value);
 
         break;
     }
   };
 
   const handleNumber = (value) => {
-    if (currentValue == 0) {
+    if (currentValue != '') {
+      var str = `${currentValue}${value}`;
+      setCurrentValue(str);
+      sendDataToParent(str);
+    } else if (currentValue === 0) {
       setCurrentValue(value);
+      sendDataToParent(value);
     } else {
-      setCurrentValue(`${currentValue}${value}`);
+      setCurrentValue(value);
+      sendDataToParent(value);
     }
+  };
+
+  const handleOperation = (value) => {
+    var clickedOperator = value;
+    var previousValue = currentValue;
+    var currentData = '';
+
+    setPrevious(currentValue);
+    setCurrentValue(0);
+    // if (value === '+') {
+    //   var addition = previous + currentValue;
+    // }
+    var str = `${previousValue}${clickedOperator}${currentData}`;
+    console.log('====', previous);
+    console.log('====', clickedOperator);
+    sendDataToParent(str);
+    console.log('====>>', str);
   };
   return (
     <View
@@ -219,13 +260,13 @@ const ButtonControll = ({sendDataToParent}) => {
         <Neomorph
           style={{
             ...styles.neumorphStyle,
-            width: Platform.OS === 'ios' ? 180 : 160,
+            width: Platform.OS === 'ios' ? 180 : 180,
             height: Platform.OS === 'ios' ? 70 : 60,
           }}>
           <TouchableOpacity
             style={{
               ...styles.buttonParent,
-              width: Platform.OS === 'ios' ? 180 : 160,
+              width: Platform.OS === 'ios' ? 180 : 180,
               height: Platform.OS === 'ios' ? 70 : 60,
             }}
             onPress={() => {
@@ -239,9 +280,9 @@ const ButtonControll = ({sendDataToParent}) => {
           <TouchableOpacity
             style={styles.buttonParent}
             onPress={() => {
-              // handleOnClick("")
+              handleOnClick('delete');
             }}>
-            <Text style={styles.textStyle}>,</Text>
+            <Text style={styles.textStyle}>Del</Text>
           </TouchableOpacity>
         </Neomorph>
         <Neomorph style={{...styles.neumorphStyle, backgroundColor: '#fa9702'}}>

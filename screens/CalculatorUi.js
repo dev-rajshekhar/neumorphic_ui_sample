@@ -11,7 +11,6 @@ const CalculatorUi = () => {
 
   const sendDataToParent = (index) => {
     // the callback. Use a better name
-    console.log(index);
     setValue(index);
   };
 
