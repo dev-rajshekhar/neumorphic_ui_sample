@@ -15,32 +15,40 @@ const CalculatorUi = () => {
   };
 
   return (
-    <SafeAreaView style={{backgroundColor: 'white', flex: 1}}>
-      <View style={{backgroundColor: 'white', flex: 5}}>
+    <SafeAreaView style={{backgroundColor: '#F8FBFF', flex: 1}}>
+      <View style={{backgroundColor: '#F8FBFF', flex: 5}}>
         <View
           style={{
-            backgroundColor: 'white',
             flex: 5,
             justifyContent: 'flex-start',
           }}>
-          <Neomorph
-            inner={true}
-            swapShadows={true}
+          <View
             style={{
-              marginVertical: 10,
-              padding: 10,
               justifyContent: 'flex-end',
-              alignItems: 'flex-end',
-              shadowRadius: Platform.OS === 'ios' ? 0 : 0,
-              borderRadius: Platform.OS === 'ios' ? 0 : 0,
-              marginHorizontal: 15,
-              backgroundColor: 'white',
-              width: windowWidth - 30,
-              height: 180,
+              flex: 4.5,
+              marginBottom: 10,
             }}>
-            <Text style={{fontSize: 32}}>{initalValue}</Text>
-          </Neomorph>
-          <ButtonControll sendDataToParent={sendDataToParent} />
+            <View
+              style={{
+                marginVertical: 10,
+                padding: 10,
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+                marginHorizontal: 15,
+                width: windowWidth - 10,
+                flexWrap: 'wrap',
+              }}>
+              <Text
+                style={{
+                  fontSize: 50,
+                  justifyContent: 'flex-end',
+                  alignItems: 'flex-end',
+                }}>
+                {initalValue}
+              </Text>
+            </View>
+            <ButtonControll sendDataToParent={sendDataToParent} />
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -50,7 +58,7 @@ const styles = StyleSheet.create({
   neumorphStyle: {
     shadowRadius: 20,
     borderRadius: 35,
-    backgroundColor: 'white',
+    backgroundColor: '#F7FAFF',
     width: 70,
     alignItems: 'center',
     justifyContent: 'center',
