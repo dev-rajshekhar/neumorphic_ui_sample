@@ -6,9 +6,10 @@ This is a ui sample for latest mobile deisgn (neumorphism ui design).
   - [react-native-neomorph-shadows](https://www.npmjs.com/package/react-native-neomorph-shadows)
   
 ### Tech
-These are the tehcnology used in it 
-    *React-native
-    *Java Script (ES6)
+
+ - React-Native
+ - Java script (ES6)
+ 
 
 ### Todos
 
