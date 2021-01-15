@@ -66,7 +66,7 @@ const ButtonControll = ({sendDataToParent}) => {
         handleNumber(value);
         break;
 
-      case 'operation':
+      case 'operator':
         handleNumber(value);
 
         break;
