@@ -8,11 +8,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Neomorph, NeomorphBlur, Shadow} from 'react-native-neomorph-shadows';
-import {calculationHelper} from './calculation_helper';
 const ButtonControll = ({sendDataToParent}) => {
-  const [currentValue, setCurrentValue] = useState('');
-  const [previous, setPrevious] = useState('');
-  const [operator, setOperator] = useState('');
+  const [currentValue, setCurrentValue] = useState(0);
+  const [previous, setPrevious] = useState(0);
+  const [operator, setOperator] = useState(null);
+  const [displayData, setDisplayData] = useState('');
 
   const NeumorphView = ({style, type, value}) => {
     return (
@@ -48,42 +48,92 @@ const ButtonControll = ({sendDataToParent}) => {
   };
 
   const handleOnClick = (type, value) => {
+    console.log('---Out', type, value);
     switch (type) {
       case 'clear':
         setPrevious('');
         setCurrentValue('');
-        setOperator('');
+        setOperator(null);
         sendDataToParent('');
         break;
       case 'delete':
-        if (currentValue.length > 0) {
-          var modifiedString = currentValue.slice(0, -1);
+        //Todo
+        // Remove last digit if operator==> currentvalue will change also
+        //in case of no  operaotr current  value will be changed
+        console.log(displayData);
+        let expression = displayData;
+        if (expression.length > 0) {
+          var modifiedString = expression.slice(0, -1);
+          console.log(modifiedString);
+
           sendDataToParent(modifiedString);
-          setCurrentValue(modifiedString);
+          setDisplayData(modifiedString);
         }
         break;
       case 'number':
-        handleNumber(value);
+        let inputValue = currentValue * 10 + parseInt(value);
+        console.log(inputValue);
+        setCurrentValue(inputValue);
+        if (operator !== null && previous != 0) {
+          setDisplayData(previous + operator + inputValue);
+          sendDataToParent(previous + operator + inputValue);
+        } else {
+          sendDataToParent(inputValue);
+          setDisplayData(inputValue);
+        }
+
         break;
-
       case 'operator':
-        handleNumber(value);
+        console.log('operatoer', operator);
+        if (operator !== null) return;
+        let previousInputValue = currentValue;
+        sendDataToParent(previousInputValue + value);
+        setDisplayData(previousInputValue + value);
 
+        console.log(previousInputValue);
+        setPrevious(previousInputValue);
+        setCurrentValue(0);
+        setOperator(value);
+
+        break;
+      case 'equal':
+        handleEqual();
         break;
     }
   };
 
-  const handleNumber = (value) => {
-    if (currentValue != '') {
-      var str = `${currentValue}${value}`;
-      setCurrentValue(str);
-      sendDataToParent(str);
-    } else if (currentValue === 0) {
-      setCurrentValue(value);
-      sendDataToParent(value);
-    } else {
-      setCurrentValue(value);
-      sendDataToParent(value);
+  const handleEqual = () => {
+    if (operator !== null) {
+      console.log('====', operator, previous, currentValue);
+      var operationOut;
+      switch (operator) {
+        case '+':
+          {
+            operationOut = previous + currentValue;
+          }
+          break;
+        case '-':
+          {
+            operationOut = previous - currentValue;
+          }
+          break;
+
+        case 'X':
+          {
+            operationOut = previous * currentValue;
+          }
+          break;
+
+        case '/':
+          {
+            operationOut = parseFloat(previous) / parseFloat(currentValue);
+          }
+          break;
+      }
+      sendDataToParent(operationOut);
+      setOperator(null);
+      setPrevious(0);
+      setCurrentValue(operationOut);
     }
   };
 
