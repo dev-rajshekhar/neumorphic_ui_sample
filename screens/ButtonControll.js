@@ -61,9 +61,10 @@ const ButtonControll = ({sendDataToParent}) => {
         // Remove last digit if operator==> currentvalue will change also
         //in case of no  operaotr current  value will be changed
         console.log(displayData);
-        let expression = displayData;
-        if (expression.length > 0) {
-          var modifiedString = expression.slice(0, -1);
+        let mathExpression = displayData;
+
+        if (mathExpression.length > 0) {
+          var modifiedString = mathExpression.slice(0, -1);
           console.log(modifiedString);
 
           sendDataToParent(modifiedString);
